@@ -1,24 +1,38 @@
+mod utils {
+    pub mod config_loader;
+}
+
 // main.rs
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, HttpRequest};
 
-#[get("/")]
-async fn hello(_req: HttpRequest) -> impl Responder {
+fn get_ip_info_from_request(_req: &HttpRequest) -> String {
     let addr = _req.peer_addr().expect("unknown addr");
     println!("Get connection from {addr}");
-    return HttpResponse::Ok().body(format!("Your IP address: {}", addr.ip()));
+    return addr.ip().to_string();
 }
 
-#[post("/test")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
+#[get("/")]
+async fn hello(_req: HttpRequest) -> impl Responder {
+    let ip_addr = get_ip_info_from_request(&_req);
+    return HttpResponse::Ok().body(format!("Your IP address: {}", ip_addr));
+}
+
+#[get("/test")]
+async fn echo(_req: HttpRequest) -> impl Responder {
+    println!("On test request!");
+    return get_ip_info_from_request(&_req);
 }
 
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Your ip:")
 }
 
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    utils::config_loader::get_config();
+
+
     let addrs = ("0.0.0.0", 10233);
     let server = HttpServer::new(|| {
         App::new()
