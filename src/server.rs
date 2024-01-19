@@ -1,6 +1,4 @@
-mod utils {
-    pub mod config_loader;
-}
+mod utils;
 
 // main.rs
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, HttpRequest};
