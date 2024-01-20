@@ -15,7 +15,8 @@ name = "client"
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
-hyper = { version = "0.14", features = ["full"] }
+hyper = { version = "0.14.28", features = ["full"] }
 actix-web = "4"
 serde = { version = "1", features = ["derive"] }
-serde_yaml = "0.8"
+serde_yaml = "0.9.30"
+rust-crypto = "0.2.36"

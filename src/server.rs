@@ -1,4 +1,5 @@
 mod utils;
+use utils::res_manager;
 
 // main.rs
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, HttpRequest};
@@ -28,8 +29,11 @@ async fn manual_hello() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    utils::config_loader::get_config();
-
+    let config = utils::config_loader::get_config();
+    let sha1_list = res_manager::get_sha1_list_recursive(&config.manage_mod_file_path);
+    for (file_name, sha1) in sha1_list? {
+        println!("{}: {}", file_name, sha1);
+    }
 
     let addrs = ("0.0.0.0", 10233);
     let server = HttpServer::new(|| {
