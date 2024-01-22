@@ -1,5 +1,9 @@
 use std::io::Write;
 
+use actix_web::{get, HttpResponse, Responder, HttpRequest};
+
+use crate::get_ip_info_from_request;
+
 use super::super::utils::{res_loader, config_loader, config_loader::Config};
 
 macro_rules! default_listen_port {
@@ -11,7 +15,7 @@ macro_rules! default_listen_port {
 pub fn server_init() -> Result<Config, Box<dyn std::error::Error>> {
     let config = match config_loader::get_config() {
         Ok(value) => value,
-        Err(err) => { 
+        Err(_err) => { 
             let c = generate_default_config();
             config_loader::save_config_to_file(&c);
             println!("Config save to {}", config_loader::get_config_file_path());
@@ -29,6 +33,12 @@ pub fn server_init() -> Result<Config, Box<dyn std::error::Error>> {
     Ok(config)
 }
 
+#[get("/")]
+pub async fn req_process(_req: HttpRequest) -> impl Responder {
+    let ip_addr = get_ip_info_from_request(&_req);
+    return HttpResponse::Ok().body(format!("Your IP address: {}", ip_addr));
+}
+
 fn generate_default_config() -> Config {
     print!("Manager mod file path: ");
     std::io::stdout().flush().unwrap();
@@ -40,7 +50,7 @@ fn generate_default_config() -> Config {
     let mut port_str = String::new();
     std::io::stdin().read_line(&mut port_str).unwrap();
     port_str = String::from(port_str.trim());
-
+    
     Config {
         manage_mod_file_path,
         server_listen_port: if port_str.len() == 0 { default_listen_port!() } else { port_str.trim().parse::<u16>().unwrap()}
