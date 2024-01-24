@@ -1,6 +1,7 @@
 mod utils;
 mod module;
 
+use module::base;
 use module::server_module;
 
 // main.rs
@@ -14,7 +15,7 @@ fn get_ip_info_from_request(_req: &HttpRequest) -> String {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let config = match server_module::server_init() {
+    let config = match base::load_general_config() {
         Ok(value) => value,
         Err(err) => {
             panic!("Error loading init server: {}", err)
