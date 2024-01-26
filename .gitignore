@@ -1,3 +1,6 @@
 /target
 .vscode/settings.json
-config.yaml
+client_config.yaml
+server_config.yaml
+*/.DS_Store
+.DS_Store

@@ -1,5 +1,9 @@
+pub mod models;
+pub mod utils;
+
 use std::io::Write;
-use super::super::utils::{res_loader, config_loader, config_loader::Config};
+use crate::models::Config;
+use crate::utils::{res_loader, config_loader};
 
 macro_rules! default_listen_port {
     () => {
@@ -7,13 +11,13 @@ macro_rules! default_listen_port {
     };
 }
 
-pub fn load_general_config() -> Result<Config, Box<dyn std::error::Error>> {
-    let config = match config_loader::get_config() {
+pub fn init(config_file_path: &str) -> Result<Config, Box<dyn std::error::Error>> {
+    let config = match config_loader::get_config(config_file_path) {
         Ok(value) => value,
-        Err(_err) => { 
+        Err(_err) => {
             let c = generate_default_config();
-            config_loader::save_config_to_file(&c);
-            println!("Config save to {}", config_loader::get_config_file_path());
+            config_loader::save_config_to_file(&c, config_file_path);
+            println!("Config save to {}", config_file_path);
             c
         }
     };

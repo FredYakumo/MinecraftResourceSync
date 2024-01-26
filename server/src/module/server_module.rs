@@ -1,8 +1,10 @@
 use actix_web::{get, HttpResponse, Responder, HttpRequest};
 
-use crate::get_ip_info_from_request;
-
-use super::super::utils::{res_loader, config_loader, config_loader::Config};
+fn get_ip_info_from_request(_req: &HttpRequest) -> String {
+    let addr = _req.peer_addr().expect("unknown addr");
+    println!("Get connection from {addr}");
+    return addr.ip().to_string();
+}
 
 #[get("/")]
 pub async fn req_process(_req: HttpRequest) -> impl Responder {

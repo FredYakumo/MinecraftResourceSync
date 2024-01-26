@@ -1,21 +1,13 @@
-mod utils;
 mod module;
 
-use module::base;
-use module::server_module;
-
+use base::{ init, utils::config_loader::get_default_config_path };
 // main.rs
-use actix_web::{App, HttpServer, HttpRequest};
-
-fn get_ip_info_from_request(_req: &HttpRequest) -> String {
-    let addr = _req.peer_addr().expect("unknown addr");
-    println!("Get connection from {addr}");
-    return addr.ip().to_string();
-}
+use module::server_module;
+use actix_web::{App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let config = match base::load_general_config() {
+    let config = match base::init(format!("server_{}", get_default_config_path()).as_str()) {
         Ok(value) => value,
         Err(err) => {
             panic!("Error loading init server: {}", err)

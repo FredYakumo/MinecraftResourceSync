@@ -1,6 +1,5 @@
 {
-	"version": "2.0.0",
-	"tasks": [
+    "tasks": [
         {
             "type": "cargo",
             "command": "run",
@@ -8,27 +7,22 @@
                 "$rustc"
             ],
             "args": [
-                "--package",
-                "fred_mc_res_sync",
-                "--bin",
-                "server"
+                "--package", "server",
+                "--bin", "server"
             ],
             "label": "rust: cargo run server"
         },
         {
             "type": "cargo",
-            "command": "build --package fred_mc_res_sync --bin server",
+            "command": "run",
             "problemMatcher": [
                 "$rustc"
             ],
             "args": [
-                "--package",
-                "fred_mc_res_sync",
-                "--bin",
-                "server"
+                "--package", "client",
+                "--bin", "client"
             ],
-            "group": "build",
-            "label": "rust: cargo build server"
+            "label": "rust: cargo run client"
         }
     ]
 }

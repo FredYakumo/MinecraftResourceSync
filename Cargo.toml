@@ -1,19 +1,10 @@
-[package]
-name = "fred_mc_res_sync"
-version = "0.1.0"
-edition = "2021"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = [
+    "server","client"
+]
 
-[[bin]]
-path = "src/server.rs"
-name = "server"
-
-[[bin]]
-path = "src/client.rs"
-name = "client"
-
-[dependencies]
+[workspace.dependencies]
 tokio = { version = "1", features = ["full"] }
 hyper = { version = "0.14.28", features = ["full"] }
 actix-web = "4"
