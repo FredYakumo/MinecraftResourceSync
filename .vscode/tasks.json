@@ -7,28 +7,28 @@
             "problemMatcher": [
                 "$rustc"
             ],
-            "label": "rust: cargo run",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "args": [
+                "--package",
+                "fred_mc_res_sync",
+                "--bin",
+                "server"
+            ],
+            "label": "rust: cargo run server"
         },
         {
             "type": "cargo",
-            "command": "run",
+            "command": "build --package fred_mc_res_sync --bin server",
             "problemMatcher": [
                 "$rustc"
             ],
-            "label": "rust: cargo run"
-        },
-        {
-            "type": "cargo",
-            "command": "build",
-            "problemMatcher": [
-                "$rustc"
+            "args": [
+                "--package",
+                "fred_mc_res_sync",
+                "--bin",
+                "server"
             ],
             "group": "build",
-            "label": "rust: cargo build"
+            "label": "rust: cargo build server"
         }
     ]
 }
