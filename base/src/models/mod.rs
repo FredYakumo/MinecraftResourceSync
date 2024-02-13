@@ -1,5 +1,18 @@
 mod config;
-mod manager_res;
 
 pub use config::Config;
-pub use manager_res::ManagerRes;
+
+use serde:: { Serialize, Deserialize };
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ModSyncRequest {
+    pub mod_sha1_list: Vec<(String, String)>,
+    pub mod_sync_class: String
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ManagerRes {
+    pub config: Config,
+    pub file_sha1_list: Vec<(String, String)>
+}
