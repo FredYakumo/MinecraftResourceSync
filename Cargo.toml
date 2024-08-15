@@ -12,3 +12,6 @@ serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9.30"
 rust-crypto = "0.2.36"
 log = "0.4.22"
+clap = "4.5.4"
+thiserror = "1.0.63"
+reqwest = "0.12.5"

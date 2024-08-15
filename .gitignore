@@ -4,3 +4,5 @@ client_config.yaml
 server_config.yaml
 */.DS_Store
 .DS_Store
+.cargo
+.vscode
