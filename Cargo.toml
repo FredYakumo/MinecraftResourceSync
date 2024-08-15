@@ -11,3 +11,4 @@ actix-web = "4"
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9.30"
 rust-crypto = "0.2.36"
+log = "0.4.22"

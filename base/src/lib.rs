@@ -46,6 +46,8 @@ fn generate_default_config() -> Config {
     
     Config {
         manage_mod_file_path,
-        server_listen_port: if port_str.len() == 0 { default_listen_port!() } else { port_str.trim().parse::<u16>().unwrap()}
+        server_listen_port: if port_str.len() == 0 { default_listen_port!() } else { port_str.trim().parse::<u16>().unwrap()},
+        mod_sync_class: todo!(),
+        server_url: todo!(),
     }
 }

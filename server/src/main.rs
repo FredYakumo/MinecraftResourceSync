@@ -1,12 +1,14 @@
 mod module;
 
 use base::{ init, utils::config_loader::get_default_config_path };
+use log::info;
 // main.rs
 use module::server_module;
 use actix_web::{App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    
     let config = match base::init(format!("server_{}", get_default_config_path()).as_str()) {
         Ok(value) => value,
         Err(err) => {
@@ -23,7 +25,7 @@ async fn main() -> std::io::Result<()> {
     .bind(&addrs)?
     .run();
 
-    println!("Server is listening on {}:{}", addrs.0, addrs.1);
+    info!("Server is listening on {}:{}", addrs.0, addrs.1);
 
     return server.await
 }
