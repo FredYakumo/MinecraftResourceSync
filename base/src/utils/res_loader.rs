@@ -5,7 +5,7 @@ use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 use std::path::Path;
 
-pub fn get_sha1_list_recursive(base_path: &str, recursive_sub_path: &str) -> Result<Vec<(String, String)>, std::io::Error> {
+pub fn get_sha1_list_recursive(base_path: &str, recursive_sub_path: &str) -> Result<Vec<(String, String)> {
     let base_path = Path::new(base_path);
     let mut ret_list: Vec<(String, String)> = Vec::new();
 

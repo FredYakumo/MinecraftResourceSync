@@ -1,0 +1,3 @@
+[submodule "LogUtil"]
+	path = LogUtil
+	url = https://github.com/FredYakumo/LogUtil.git
