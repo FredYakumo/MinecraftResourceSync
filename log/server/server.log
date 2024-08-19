@@ -1,0 +1,19 @@
+[2024-08-19 19:48:16 DEBUG] Config { manage_mod_file_path: "server", server_listen_port: 10233, mod_sync_class: None, server_url: None }
+[2024-08-19 19:48:16 INFO] Loading files from manage path...
+[2024-08-19 19:48:16 INFO] ===================================
+[2024-08-19 19:48:16 INFO] Cargo.toml: 677b5da61589e24cbbb61729ef6c8c600ef69bf1
+[2024-08-19 19:48:16 INFO] build.rs: d8a896856bef90506f48a429b98e610ce96c4fd9
+[2024-08-19 19:48:16 INFO] module/mod.rs: 572170e88d6851fa3f4e94f90549c9ac61df9ed9
+[2024-08-19 19:48:16 INFO] module/server_module.rs: fe0af5c05e7032e2fccfc5182451ca2befaf6c0c
+[2024-08-19 19:48:16 INFO] src/main.rs: fbb318bb80007e2b480f99b874d45cbb583bc11a
+[2024-08-19 19:48:16 INFO] ===================================
+[2024-08-19 19:48:16 INFO] starting 4 workers
+[2024-08-19 19:48:16 INFO] Server is listening on 0.0.0.0:10233
+[2024-08-19 19:48:16 INFO] Actix runtime found; starting in Actix runtime
+[2024-08-19 19:48:20 INFO] SIGINT received; starting forced shutdown
+[2024-08-19 19:48:20 INFO] shutting down idle worker
+[2024-08-19 19:48:20 DEBUG] paused accepting connections on 0.0.0.0:10233
+[2024-08-19 19:48:20 INFO] shutting down idle worker
+[2024-08-19 19:48:20 INFO] shutting down idle worker
+[2024-08-19 19:48:20 INFO] shutting down idle worker
+[2024-08-19 19:48:20 INFO] accept thread stopped

@@ -1,3 +1,5 @@
+use log::{debug, info};
+
 use crate::models::Config;
 use std::fs::File;
 use std::io::prelude::*;
@@ -22,7 +24,7 @@ pub fn get_config(config_file_path: &str) -> std::io::Result<Config> {
 
     let ci: Config = serde_yaml::from_str(&contents).expect("Unable to parse YAML");
 
-    println!("{:?}", ci);
+    debug!("{:?}", ci);
 
     Ok(ci)
 }

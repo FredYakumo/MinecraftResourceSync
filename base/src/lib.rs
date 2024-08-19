@@ -28,14 +28,9 @@ pub fn init(config_file_path: &str) -> Result<Config> {
     info!("Loading files from manage path...");
     info!("===================================");
 
-    let file_list = fs::read_dir(&config.manage_mod_file_path)?;
-    for f in file_list {
-        let f = f?;
-    }
-
     let sha1_list = res_loader::get_sha1_list_recursive(&config.manage_mod_file_path, "");
     for (file_name, sha1) in sha1_list? {
-        println!("{}: {}", file_name, sha1);
+        info!("{}: {}", file_name, sha1);
     }
     info!("===================================");
 
