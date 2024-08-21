@@ -1,14 +1,20 @@
 mod module;
 
 use base::{ init, utils::config_loader::get_default_config_path };
-use log::info;
+use log::{error, info};
 // main.rs
 use module::server_module;
 use actix_web::{App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let config = base::init(format!("server_{}", get_default_config_path()).as_str())?;
+    let config = match init(format!("server_{}", get_default_config_path()).as_str()) {
+        Ok(config) => config,
+        Err(err) => {
+            error!("Error: {}", err.to_string());
+            return Err(err.into());
+        }
+    };
 
     let addrs = ("0.0.0.0", config.server_listen_port);
     let server = HttpServer::new(|| {

@@ -4,15 +4,18 @@ use std::io::Read;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
 use std::path::Path;
+use crate::models::error::Result;
 
-pub fn get_sha1_list_recursive(base_path: &str, recursive_sub_path: &str) -> Result<Vec<(String, String)> {
+pub fn get_sha1_list_recursive(base_path: &str, recursive_sub_path: &str) -> Result<Vec<(String, String)>> {
     let base_path = Path::new(base_path);
     let mut ret_list: Vec<(String, String)> = Vec::new();
 
     let entries = fs::read_dir(base_path.join(recursive_sub_path))?;
-
+    dbg!(&base_path);
+    dbg!(&recursive_sub_path);
     for entry in entries {
         let entry = entry?;
+        dbg!(&entry.file_name());
         if entry.metadata()?.is_dir() { // recurse into subdirs if it's a directory
             ret_list.append(&mut get_sha1_list_recursive(base_path.to_str().unwrap(),
              entry.file_name().to_str().unwrap())?);
