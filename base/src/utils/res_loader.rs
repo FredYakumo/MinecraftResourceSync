@@ -5,7 +5,6 @@ use std::fs;
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
-use crate::models::error::Result;
 
 pub fn get_sha1_list_recursive(
     base_path: &str,
@@ -14,8 +13,6 @@ pub fn get_sha1_list_recursive(
     let base_path = Path::new(base_path);
     let mut ret_list: Vec<(String, String)> = Vec::new();
     let entries = fs::read_dir(base_path.join(recursive_sub_path))?;
-    dbg!(&base_path);
-    dbg!(&recursive_sub_path);
     for entry in entries {
         let entry = entry?;
         if entry.metadata()?.is_dir() {
@@ -24,7 +21,7 @@ pub fn get_sha1_list_recursive(
                 base_path.join(recursive_sub_path).to_str().unwrap(),
                 entry.file_name().to_str().unwrap(),
             )?);
-        dbg!(&entry.file_name());
+        }
         if entry.metadata()?.is_dir() { // recurse into subdirs if it's a directory
             ret_list.append(&mut get_sha1_list_recursive(base_path.to_str().unwrap(),
              entry.file_name().to_str().unwrap())?);
