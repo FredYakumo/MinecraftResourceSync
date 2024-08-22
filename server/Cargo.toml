@@ -10,6 +10,7 @@ log_util = { path = "../LogUtil" }
 log = { workspace = true }
 clap = { workspace = true }
 lazy_static = { workspace = true }
+serde = { workspace = true }
 
 [build-dependencies]
 chrono = { version = "0.4", features = ["serde"] }
