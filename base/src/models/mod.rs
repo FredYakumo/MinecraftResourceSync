@@ -1,19 +1,19 @@
 mod config;
 pub mod error;
+pub mod request;
+
+use std::collections::HashMap;
 
 pub use config::Config;
 
 use serde:: { Serialize, Deserialize };
 
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ModSyncRequest {
-    pub mod_sha1_list: Vec<(String, String)>,
-    pub mod_sync_class: String
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ManagerRes {
-    pub config: Config,
-    pub file_sha1_list: Vec<(String, String)>
+#[derive(Deserialize)]
+#[allow(non_snake_case)]
+pub struct ModClass {
+    pub class_name: String,
+    /**
+     *  Key: file_hash, Value file_name
+    */
+    pub mod_list: HashMap<String, String>
 }
