@@ -13,38 +13,28 @@ fn get_ip_info_from_request(_req: &HttpRequest) -> String {
     return addr.ip().to_string();
 }
 
-#[derive(Deserialize)]
-#[allow(non_snake_case)]
-struct ClassNameModHashList {
-    pub className: String,
-    pub modSha1FileNameMap: HashMap<String, String>,
-}
-
-#[derive(Deserialize)]
-#[allow(non_snake_case)]
-struct ClassNameModAndResidualHashList {
-    pub className: String,
-    pub modSha1List: Vec<String>,
-    pub residualModNameSha1Map: HashMap<String, String>,
-}
-
 #[post("/fetchMissingModList")]
 pub async fn fetch_missiong_mod_list(
     managed_mod: Data<Arc<ManagedMod>>,
-    req: &HttpRequest,
+    req: Data<Arc<HttpRequest>>,
     req_class_name_mod_list: Data<Arc<Vec<ClassNameModHashList>>>,
 ) -> impl Responder {
     let req_mod_class_sha1_map = construct_mod_class_sha1_file_map(&req_class_name_mod_list);
     let mut ret = hashmap! {};
     for (class_name, sha1_file_map) in req_mod_class_sha1_map.iter() {
         if let Some(mod_class) = managed_mod.class_name_map.get(class_name) {
-            ret.insert(class_name)
+            let mut mod_sha1_map = hashmap! {};
+            ret.insert(class_name, ClassNameModAndResidualHashList {
+                className: class_name.clone(),
+                modNameSha1Map: mod_class.get_missing_sha1_file_name_map(sha1_file_map.keymap(collect()),
+                residualModNameSha1Map: hashmap! {}
+            });
         } else {
             ret.insert(
                 class_name,
                 ClassNameModAndResidualHashList {
                     className: class_name.clone(),
-                    modSha1List: vec![],
+                    modNameSha1Map: hashmap! {},
                     residualModNameSha1Map: sha1_file_map
                         .iter()
                         .map(|(sha1, file)| (file.clone(), sha1.clone()))
